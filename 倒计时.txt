@@ -1,0 +1,29 @@
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+    [timer fire];
+
+}
+
+- (void)timerFireMethod:(NSTimer *)timer
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setYear:2015];
+    [components setMonth:11];
+    [components setDay:24];
+    [components setHour:11];
+    [components setMinute:21];
+    [components setSecond:0];
+    NSDate *fireDate = [calendar dateFromComponents:components];//目标时间
+    NSDate *today = [NSDate date];//当前时间
+    
+    unsigned int unitFlags =
+    NSCalendarUnitYear |
+    NSCalendarUnitMonth |
+    NSCalendarUnitDay |
+    NSCalendarUnitHour |
+    NSCalendarUnitMinute |
+    NSCalendarUnitSecond;
+    
+    NSDateComponents *d = [calendar components:unitFlags fromDate:today toDate:fireDate options:0];//计算时间差
+    _countDownLable.text = [NSString stringWithFormat:@"%ld天%ld小时%ld分%ld秒", (long)[d day], (long)[d hour], (long)[d minute], (long)[d second]];//倒计时显示
+}
